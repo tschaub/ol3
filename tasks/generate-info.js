@@ -1,7 +1,9 @@
-const fse = require('fs-extra');
-const path = require('path');
-const spawn = require('child_process').spawn;
-const walk = require('walk').walk;
+import fse from 'fs-extra';
+import path from 'path';
+import {spawn} from 'child_process';
+import {walk} from 'walk';
+import esMain from 'es-main';
+
 const isWindows = process.platform.indexOf('win') === 0;
 
 const sourceDir = path.join(__dirname, '..', 'src');
@@ -155,7 +157,7 @@ async function write(info) {
  * Generate info from the sources.
  * @return {Promise<Error>} Resolves with the info object.
  */
-async function main() {
+export default async function main() {
   const paths = await getPaths();
   return await spawnJSDoc(paths);
 }
@@ -164,14 +166,8 @@ async function main() {
 /**
  * If running this module directly, generate and write out the info.json file.
  */
-if (require.main === module) {
+if (esMain(import.meta)) {
   main().then(write).catch(err => {
     process.stderr.write(`${err.message}\n`, () => process.exit(1));
   });
 }
-
-
-/**
- * Export main function.
- */
-module.exports = main;

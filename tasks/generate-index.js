@@ -1,6 +1,7 @@
-const fse = require('fs-extra');
-const path = require('path');
-const generateInfo = require('./generate-info');
+import fse from 'fs-extra';
+import path from 'path';
+import generateInfo from './generate-info.js';
+import esMain from 'es-main';
 
 
 /**
@@ -101,7 +102,7 @@ function generateExports(symbols) {
  * Generate the exports code.
  * @return {Promise<string>} Resolves with the exports code.
  */
-async function main() {
+export default async function main() {
   const symbols = await getSymbols();
   return generateExports(symbols);
 }
@@ -111,7 +112,7 @@ async function main() {
  * If running this module directly, read the config file, call the main
  * function, and write the output file.
  */
-if (require.main === module) {
+if (esMain(import.meta)) {
   main().then(async code => {
     const filepath = path.join(__dirname, '..', 'build', 'index.js');
     await fse.outputFile(filepath, code);
@@ -119,9 +120,3 @@ if (require.main === module) {
     process.stderr.write(`${err.message}\n`, () => process.exit(1));
   });
 }
-
-
-/**
- * Export main function.
- */
-module.exports = main;

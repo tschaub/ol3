@@ -27,6 +27,7 @@
     "apidoc": "shx rm -rf build/apidoc && jsdoc -R config/jsdoc/api/index.md -c config/jsdoc/api/conf.json -P package.json -d build/apidoc"
   },
   "main": "index.js",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git://github.com/openlayers/openlayers.git"
@@ -49,6 +50,7 @@
     "@types/geojson": "^7946.0.7",
     "@types/pbf": "^3.0.2",
     "@types/topojson-specification": "^1.0.1",
+    "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.5",
     "buble": "^0.19.7",
     "buble-loader": "^0.5.1",
@@ -56,6 +58,7 @@
     "clean-css-cli": "4.3.0",
     "copy-webpack-plugin": "^5.0.4",
     "coveralls": "3.0.9",
+    "es-main": "^1.0.2",
     "eslint": "^6.0.0",
     "eslint-config-openlayers": "^13.0.0",
     "expect.js": "0.3.1",
@@ -104,6 +107,7 @@
   },
   "eslintConfig": {
     "extends": "openlayers",
+    "parser": "babel-eslint",
     "plugins": [
       "@openlayers"
     ],

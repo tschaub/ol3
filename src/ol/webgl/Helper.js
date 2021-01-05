@@ -499,16 +499,22 @@ class WebGLHelper extends Disposable {
    * Execute a draw call based on the currently bound program, texture, buffers, attributes.
    * @param {number} start Start index.
    * @param {number} end End index.
+   * @param {GLenum} [opt_mode=gl.TRIANGLES] Draw mode.
    * @api
    */
-  drawElements(start, end) {
+  drawElements(start, end, opt_mode) {
     const gl = this.getGL();
     const elementType = gl.UNSIGNED_INT;
     const elementSize = 4;
 
     const numItems = end - start;
     const offsetInBytes = start * elementSize;
-    gl.drawElements(gl.TRIANGLES, numItems, elementType, offsetInBytes);
+    gl.drawElements(
+      opt_mode || gl.TRIANGLES,
+      numItems,
+      elementType,
+      offsetInBytes
+    );
   }
 
   /**

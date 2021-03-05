@@ -1835,7 +1835,7 @@ function animationCallback(callback, returnValue) {
  * @return {import("./centerconstraint.js").Type} The constraint.
  */
 export function createCenterConstraint(options) {
-  if (options.extent !== undefined) {
+  if (options.extent) {
     const smooth =
       options.smoothExtentConstraint !== undefined
         ? options.smoothExtentConstraint

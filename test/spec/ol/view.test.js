@@ -101,6 +101,17 @@ describe('ol.View', function () {
       expect(view.getResolution()).to.eql(0.5);
       expect(view.targetResolution_).to.eql(0.5);
     });
+
+    it('works with null extent', function () {
+      // default viewport size is 100x100
+      const view = new View({
+        extent: null,
+        resolution: 1,
+      });
+      view.setViewportSize();
+      expect(view.getResolution()).to.eql(1);
+      expect(view.targetResolution_).to.eql(1);
+    });
   });
 
   describe('create constraints', function () {
